@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "123460552004",
+    "firebase_url": "https://fire-messenger-42f8c.firebaseio.com",
+    "project_id": "fire-messenger-42f8c",
+    "storage_bucket": "fire-messenger-42f8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123460552004:android:e1efb8e2cb1c94c2b6c311",
+        "android_client_info": {
+          "package_name": "com.fire.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123460552004-fvgnqpj4lndllr0el603dqvksj3rkpeg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvcxX9bGQDsWadaGPzTYHyCekoSFmI61s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123460552004-fvgnqpj4lndllr0el603dqvksj3rkpeg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
