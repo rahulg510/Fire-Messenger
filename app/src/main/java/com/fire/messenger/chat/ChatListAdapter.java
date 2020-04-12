@@ -1,4 +1,6 @@
-package com.fire.messenger;
+package com.fire.messenger.chat;
+
+import com.fire.messenger.R;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +18,16 @@ import java.util.ArrayList;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
-    ArrayList<UserObject> userList;
+    ArrayList<ChatObject> chatList;
 
-    public ChatListAdapter(ArrayList<UserObject> userList) {
-        this.userList = userList;
+    public ChatListAdapter(ArrayList<ChatObject> chatList) {
+        this.chatList = chatList;
     }
 
     @NonNull
     @Override
     public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, null, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, null, false);
         //prevent each user info from being bigger than desired
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
@@ -37,15 +39,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     @Override
     public void onBindViewHolder(@NonNull ChatListViewHolder holder, final int position) {
 
-        holder.mName.setText(userList.get(position).getName());
-        holder.mPhone.setText(userList.get(position).getPhone());
+        holder.mTitle.setText(chatList.get(position).getChatId());
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String key = FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
-
-                FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
-                FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
 
             }
         });
@@ -54,18 +51,17 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return chatList.size();
     }
 
     public class ChatListViewHolder extends RecyclerView.ViewHolder {
-        public TextView mName, mPhone;
+        public TextView mTitle;
         public LinearLayout mLayout;
 
         public ChatListViewHolder(View itemView) {
             super(itemView);
-            mName = itemView.findViewById(R.id.name);
-            mPhone = itemView.findViewById(R.id.phone);
-            mLayout = itemView.findViewById(R.id.layoutItemUser);
+            mTitle = itemView.findViewById(R.id.title);
+            mLayout = itemView.findViewById(R.id.layout);
 
         }
     }
