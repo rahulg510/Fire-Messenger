@@ -92,14 +92,13 @@ public class FindUserActivity extends AppCompatActivity {
                         if(name.equals(phone)){
                             for(UserObject obj: contactList){
                                 if(obj.getPhone().equals(phone)){
-                                    obj.setName("obj.getName()");
+                                    user.setName(obj.getName());
                                 }
                             }
                         }
                         userList.add(user);
-                        System.out.print(user.getName() + " phone" + user.getPhone());
                         mUserListAdapter.notifyDataSetChanged();
-
+                        return;
                     }
                 }
             }
@@ -120,9 +119,9 @@ public class FindUserActivity extends AppCompatActivity {
     private String getCountryISO(){
         String iso = null;
         TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);
-        if(telephonyManager != null){
+        if(telephonyManager.getNetworkCountryIso() != null){
             if(!telephonyManager.getNetworkCountryIso().equals("")){
-                iso = telephonyManager.getNetworkCountryIso();
+                iso = telephonyManager.getNetworkCountryIso().toString();
             }
         }
 

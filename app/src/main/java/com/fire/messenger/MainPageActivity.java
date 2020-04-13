@@ -29,7 +29,7 @@ public class MainPageActivity extends AppCompatActivity {
     private RecyclerView.Adapter mChatListAdapter;
     private RecyclerView.LayoutManager mChatListLayoutManager;
 
-    ArrayList<ChatObject> chatList;
+    ArrayList<ChatObject> chatList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +63,19 @@ public class MainPageActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
+                return;
             }
         });
 
         getPermission();
         initializeRecyclerView();
-        getUserChat();
+        getUserChatList();
 
     }
 
 
-    public void getUserChat(){
-        DatabaseReference mUserChatDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("child");
+    public void getUserChatList(){
+        DatabaseReference mUserChatDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
 
         mUserChatDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +83,13 @@ public class MainPageActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snap: dataSnapshot.getChildren()){
                         ChatObject mChat = new ChatObject(snap.getKey());
+                        boolean exists = false;
+                        for(ChatObject it: chatList){
+                            if(it.getChatId().equals(mChat.getChatId())){
+                                exists = true;
+                            }
+                        }
+                        if(exists) continue;
                         chatList.add(mChat);
                         mChatListAdapter.notifyDataSetChanged();
                     }
@@ -96,7 +104,7 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void initializeRecyclerView() {
-        mChatList = findViewById(R.id.userList);
+        mChatList = findViewById(R.id.chatList);
         //scrolls smoothly
         mChatList.setNestedScrollingEnabled(false);
         mChatList.setHasFixedSize(false);

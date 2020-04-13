@@ -30,12 +30,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
 
-        UserListViewHolder rcv = new UserListViewHolder(layoutView);
-        return rcv;
+        return new UserListViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final UserListViewHolder holder, final int position) {
 
         holder.mName.setText(userList.get(position).getName());
         holder.mPhone.setText(userList.get(position).getPhone());
@@ -65,7 +64,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
             super(itemView);
             mName = itemView.findViewById(R.id.name);
             mPhone = itemView.findViewById(R.id.phone);
-            mLayout = itemView.findViewById(R.id.layoutItemUser);
+            mLayout = itemView.findViewById(R.id.layout);
 
         }
     }
